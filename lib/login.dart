@@ -18,7 +18,7 @@ class _LoginpageState extends State<Loginpage> {
   Future<void> signIn() async {
     try {
       await Auth().signin(
-          email: _emailcontroller.text, 
+          email: _emailcontroller.text,
           password: _passwordcontroller.text);
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -75,7 +75,7 @@ class _LoginpageState extends State<Loginpage> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color:const Color.fromARGB(222, 190, 218, 255)),
+                    color: const Color.fromARGB(222, 190, 218, 255)),
                 child: TextField(
                   onTap: () => setState(() {
                     errorMessage = '';
@@ -90,7 +90,7 @@ class _LoginpageState extends State<Loginpage> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color:const  Color.fromARGB(222, 190, 218, 255)),
+                    color: const Color.fromARGB(222, 190, 218, 255)),
                 child: TextField(
                   obscureText: hidepassword,
                   onTap: () => setState(() {
@@ -103,15 +103,15 @@ class _LoginpageState extends State<Loginpage> {
                       onPressed: () => setState(() {
                         hidepassword = hidepassword ? false : true;
                       }),
-                      icon: Icon(hidepassword
-                          ? Icons.visibility
-                          : Icons.visibility_off ,color: Colors.black,),
+                      icon: Icon(
+                        hidepassword ? Icons.visibility : Icons.visibility_off,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                   controller: _passwordcontroller,
                 ),
               ),
-             
               OutlinedButton(
                   onPressed: () {
                     signIn();
@@ -122,16 +122,12 @@ class _LoginpageState extends State<Loginpage> {
                     createAcc();
                   },
                   child: const Text('register')),
-
-                  Visibility(
-                    visible: errorMessage == ''? false:true,
-                    child: Text(
-                      errorMessage,
-                      style: const TextStyle(color: Colors.red),
-                    ))
-             
-                  
-                   
+              Visibility(
+                  visible: errorMessage == '' ? false : true,
+                  child: Text(
+                    errorMessage,
+                    style: const TextStyle(color: Colors.red),
+                  ))
             ],
           ),
         ),

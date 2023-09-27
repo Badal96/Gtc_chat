@@ -19,16 +19,13 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:  Text(widget.user.email! ), 
-        actions: [
+      appBar: AppBar(title: Text(widget.user.email!), actions: [
         IconButton(
             onPressed: () {
-              showAlertDialog(context,Auth().signOut,'Are you sure you want to sign out?');
-             
+              showAlertDialog(context, Auth().signOut,
+                  'Are you sure you want to sign out?');
             },
             icon: const Icon(Icons.logout)),
-            
       ]),
       body: body(),
     );
@@ -47,9 +44,9 @@ class _ChatPageState extends State<ChatPage> {
                     child: CircularProgressIndicator(),
                   );
                 }
-                 
+
                 List messages = List.from(snapshots.data!.docs);
-                   
+
                 messages.sort((a, b) =>
                     (a.data()['created'] as Timestamp)
                         .compareTo(b.data()['created'] as Timestamp) *
@@ -60,9 +57,13 @@ class _ChatPageState extends State<ChatPage> {
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
                     var data = messages[index].data();
-                    var messageid = messages[index].id;   
-                    return messageTile( messageid, data['messages'], data['from'],
-                        (data['created'] as Timestamp).toDate(),widget.user);
+                    var messageid = messages[index].id;
+                    return messageTile(
+                        messageid,
+                        data['messages'],
+                        data['from'],
+                        (data['created'] as Timestamp).toDate(),
+                        widget.user);
                   },
                 );
               }),
@@ -114,29 +115,26 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  Widget messageTile(String messageid,  String text, String from, DateTime date ,User user) {
-     bool iscurrentuser = from == user.email; 
+  Widget messageTile(
+      String messageid, String text, String from, DateTime date, User user) {
+    bool iscurrentuser = from == user.email;
     return Container(
       constraints: const BoxConstraints(minHeight: 60),
       width: MediaQuery.of(context).size.width * 0.7,
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
-        color: iscurrentuser? Colors.green:Colors.blue,
+        color: iscurrentuser ? Colors.green : Colors.blue,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
-        
         children: [
           Expanded(
-           
             child: Column(
-             
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-            
                 Padding(
-                  padding: const EdgeInsets.only(bottom:10.0),
+                  padding: const EdgeInsets.only(bottom: 10.0),
                   child: Text(
                     'from $from      ${date..toIso8601String()}',
                     style: const TextStyle(color: Colors.white, fontSize: 12),
@@ -149,35 +147,43 @@ class _ChatPageState extends State<ChatPage> {
               ],
             ),
           ),
-              iscurrentuser? IconButton(onPressed: () {
-               showAlertDialog(context,db.collection('Gtcchat').doc(messageid).delete,'delete message?');
-               
-              }, icon:const Icon(Icons.delete,),iconSize: 19, ): Container(),
+          iscurrentuser
+              ? IconButton(
+                  onPressed: () {
+                    showAlertDialog(
+                        context,
+                        db.collection('Gtcchat').doc(messageid).delete,
+                        'delete message?');
+                  },
+                  icon: const Icon(
+                    Icons.delete,
+                  ),
+                  iconSize: 19,
+                )
+              : Container(),
         ],
       ),
     );
   }
- 
 }
 
- showAlertDialog(BuildContext context,Future< void> Function() ontap, String text) {
- 
+showAlertDialog(
+    BuildContext context, Future<void> Function() ontap, String text) {
   Widget cancelButton = TextButton(
-    child:const Text("Cancel"),
-    onPressed:  () {
+    child: const Text("Cancel"),
+    onPressed: () {
       Navigator.of(context).pop();
     },
   );
   Widget continueButton = TextButton(
-    child:const Text("Continue"),
-    onPressed:  () {
+    child: const Text("Continue"),
+    onPressed: () {
       ontap();
-       Navigator.of(context).pop();
+      Navigator.of(context).pop();
     },
   );
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-   
     content: Text(text),
     actions: [
       cancelButton,
