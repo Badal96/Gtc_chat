@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "871196490919",
+    "project_id": "gtc-chat-3896a",
+    "storage_bucket": "gtc-chat-3896a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871196490919:android:da1aa04bbee93d3a9e6f82",
+        "android_client_info": {
+          "package_name": "com.example.gtc_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPW2j0N_v6qV-jkA6xXVlzIc08SSZSX7E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
